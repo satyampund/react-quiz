@@ -1,9 +1,10 @@
 import React from 'react';
+import DateCounter from './DateCounter';
 
 const App = () => {
   return (
     <div>
-      <h1>Reacr Quiz Setup</h1>
+      <DateCounter />
     </div>
   );
 };
