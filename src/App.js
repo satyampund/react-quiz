@@ -5,6 +5,7 @@ import Loader from './components/Loader.js';
 import Error from './components/Error.js';
 import StartScreen from './components/StartScreen.js';
 import Question from './components/Question.js';
+import NextButton from './components/NextButton.js';
 
 const initialState = {
   questions: [],
@@ -41,6 +42,12 @@ function reducer(state, action) {
         points:
           action.payload === question.correctOption ? state.points + question.points : state.points,
       };
+    case 'nextQuestion':
+      return {
+        ...state,
+        index: state.index + 1,
+        answer: null,
+      };
     default:
       throw new Error('Unknown error');
   }
@@ -65,7 +72,10 @@ const App = () => {
         {status === 'error' && <Error />}
         {status === 'ready' && <StartScreen numQuestions={numQuestions} dipatch={dispatch} />}
         {status === 'active' && (
-          <Question question={questions[index]} dispatch={dispatch} answer={answer} />
+          <>
+            <Question question={questions[index]} dispatch={dispatch} answer={answer} />
+            <NextButton dispatch={dispatch} answer={answer} />
+          </>
         )}
       </Main>
     </div>
